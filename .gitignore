@@ -1,0 +1,10 @@
+#VS
+*.csproj
+*.sln
+*.userprefs
+*.suo
+obj/
+
+#Unity
+Library/
+Temp/
