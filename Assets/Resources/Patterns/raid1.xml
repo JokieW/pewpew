@@ -3,23 +3,7 @@
 <bulletml>
 
   <action label="top">
-
     <action>
-      <repeat>
-        <times>5</times>
-        <action>
-          <fire>
-            <direction type="absolute">10</direction>
-            <speed>3</speed>
-            <bullet label="grunt"></bullet>
-          </fire>
-          <wait>25</wait>
-          <actionRef label="shots"></actionRef>
-        </action>
-      </repeat>
-    </action>
-    
-    <action label="shots">
       <repeat>
         <times>3</times>
         <action>
@@ -47,6 +31,5 @@
         </action>
       </repeat>
     </action>
-    
   </action>
 </bulletml>
