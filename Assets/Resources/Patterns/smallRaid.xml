@@ -10,43 +10,48 @@
         <action>
           <fire>
             <direction type="absolute">10</direction>
-            <speed>3</speed>
-            <bullet label="grunt"></bullet>
-          </fire>
-          <wait>25</wait>
-          <actionRef label="shots"></actionRef>
-        </action>
-      </repeat>
-    </action>
-    
-    <action label="shots">
-      <repeat>
-        <times>3</times>
-        <action>
-          <fire>
-            <direction type="aim">5</direction>
-            <speed>2</speed>
-            <bullet />
-          </fire>
-          <fire>
-            <direction type="aim">0</direction>
-            <speed>1.5</speed>
-            <bullet />
-          </fire>
-          <fire>
-            <direction type="aim">-5</direction>
             <speed>1</speed>
-            <bullet />
+            <bulletRef label="grunt"></bulletRef>
           </fire>
-          <fire>
-            <direction type="aim">0</direction>
-            <speed>0.5</speed>
-            <bullet />
-          </fire>
-          <wait>25</wait>
+          <wait>65</wait>
         </action>
       </repeat>
     </action>
-    
+  </action>
+
+  <bullet label="grunt">
+    <action>
+      <wait>100</wait>
+      <actionRef label="shots"></actionRef>
+    </action>
+  </bullet>
+
+  <action label="shots">
+    <repeat>
+      <times>3</times>
+      <action>
+        <fire>
+          <direction type="aim">5</direction>
+          <speed>2</speed>
+          <bullet />
+        </fire>
+        <fire>
+          <direction type="aim">0</direction>
+          <speed>1.5</speed>
+          <bullet />
+        </fire>
+        <fire>
+          <direction type="aim">-5</direction>
+          <speed>1</speed>
+          <bullet />
+        </fire>
+        <fire>
+          <direction type="aim">0</direction>
+          <speed>0.5</speed>
+          <bullet />
+        </fire>
+        <wait>25</wait>
+      </action>
+    </repeat>
   </action>
 </bulletml>
