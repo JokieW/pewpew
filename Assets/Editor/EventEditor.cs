@@ -2,12 +2,15 @@
 using System.Collections;
 using UnityEditor;
 
-[CustomEditor(typeof(Event))]
-public class EventEditor : Editor 
+namespace Jokie
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(Event))]
+    public class EventEditor : Editor
     {
-        Event ed = (Event)target;
-        ed.CodeWindow = GUILayout.TextArea(ed.CodeWindow);
+        public override void OnInspectorGUI()
+        {
+            Event ed = (Event)target;
+            ed.CodeWindow = GUILayout.TextArea(ed.CodeWindow);
+        }
     }
 }

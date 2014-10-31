@@ -1,7 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public interface ITriggerable
+namespace Jokie
 {
+    public interface ITriggerable
+    {
+
+    }
+
+    public interface IEvent
+    {
+        void StartEvent();
+    }
 
 }

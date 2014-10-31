@@ -1,29 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Timer 
+namespace Jokie
 {
-    private float _startTime;
-    private float _delay;
-
-    public Timer(float time)
+    public class Timer
     {
-        Start(time);
-    }
+        private float _startTime;
+        private float _delay;
 
-    public void Start(float time)
-    {
-        _startTime = Time.time;
-        _delay = time;
-    }
+        public Timer(float time)
+        {
+            Start(time);
+        }
 
-    public bool Check()
-    {
-        return Time.time >= _startTime + _delay;
-    }
+        public void Start(float time)
+        {
+            _startTime = Time.time;
+            _delay = time;
+        }
 
-    public void Reset()
-    {
-        _startTime = Time.time;
+        public bool Check()
+        {
+            return Time.time >= _startTime + _delay;
+        }
+
+        public void Reset()
+        {
+            _startTime = Time.time;
+        }
     }
 }

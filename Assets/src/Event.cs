@@ -4,25 +4,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Mono.CSharp;
 
-public class Event : MonoBehaviour, ITriggerable
+namespace Jokie
 {
-    public string CodeWindow = "C# code here";
-
-	void Start () 
+    public class Event : MonoBehaviour, IEvent
     {
+        public string CodeWindow = "C# code here";
 
-	}
-	
-	void Update () 
-    {
-	    
-	}
-
-    public void StartEvent()
-    {
-        EventManager.RegisterEvent(CodeWindow);
+        public void StartEvent()
+        {
+            EventManager.RegisterEvent(CodeWindow);
+        }
     }
-
-
-
 }

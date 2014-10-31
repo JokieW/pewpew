@@ -1,58 +1,67 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//Trigger warning
-public class Trigger : MonoBehaviour 
+namespace Jokie
 {
-    public TriggerType type;
-    public Event triggeree;
-
-	void Start () 
+    //Trigger warning
+    public class Trigger : MonoBehaviour
     {
-        if (type == TriggerType.Autorun)
-        {
-            triggeree.StartEvent();
-        }
-	}
+        public TriggerType type;
+        public Object triggeree;
+        public float timer;
 
-    void FireTrigger()
-    {
-        if (type == TriggerType.PlayerInteract)
+        void Start()
         {
-            triggeree.StartEvent();
-        }
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if(type == TriggerType.PlayerTouch || type == TriggerType.EventTouch || type == TriggerType.ActorTouch)
-        {
-            ITriggerable it = (ITriggerable)other.gameObject.GetComponent(typeof(ITriggerable));
-            if (it != null)
+            if (type == TriggerType.Autorun)
             {
-                if (type == TriggerType.PlayerTouch && it.GetType() == typeof(Player))
+                ((IEvent)triggeree).StartEvent();
+            }
+            else if (type == TriggerType.Timed)
+            {
+                CallbackTimer.RegisterTimer(new Timer(timer), ((IEvent)triggeree).StartEvent);
+            }
+        }
+
+        void FireTrigger()
+        {
+            if (type == TriggerType.PlayerInteract)
+            {
+                ((IEvent)triggeree).StartEvent();
+            }
+        }
+
+        void OnTriggerEnter(Collider other)
+        {
+            if (type == TriggerType.PlayerTouch || type == TriggerType.EventTouch || type == TriggerType.ActorTouch)
+            {
+                ITriggerable it = (ITriggerable)other.gameObject.GetComponent(typeof(ITriggerable));
+                if (it != null)
                 {
-                    triggeree.StartEvent();
-                }
-                else if (type == TriggerType.ActorTouch && it.GetType() == typeof(Actor))
-                {
-                    triggeree.StartEvent();
-                }
-                else if (type == TriggerType.EventTouch && it.GetType() == typeof(Event))
-                {
-                    triggeree.StartEvent();
+                    if (type == TriggerType.PlayerTouch && it.GetType() == typeof(Player))
+                    {
+                        ((IEvent)triggeree).StartEvent();
+                    }
+                    else if (type == TriggerType.ActorTouch && it.GetType() == typeof(Actor))
+                    {
+                        ((IEvent)triggeree).StartEvent();
+                    }
+                    else if (type == TriggerType.EventTouch && it.GetType() == typeof(Event))
+                    {
+                        ((IEvent)triggeree).StartEvent();
+                    }
                 }
             }
         }
     }
-}
 
-public enum TriggerType
-{
-    None,
-    PlayerTouch,
-    ActorTouch,
-    EventTouch,
-    PlayerInteract,
-    Autorun
+    public enum TriggerType
+    {
+        None,
+        PlayerTouch,
+        ActorTouch,
+        EventTouch,
+        PlayerInteract,
+        Autorun,
+        Timed
+    }
 }

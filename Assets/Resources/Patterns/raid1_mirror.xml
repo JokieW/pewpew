@@ -6,10 +6,10 @@
 
     <action>
       <repeat>
-        <times>5</times>
+        <times>500</times>
         <action>
           <fire>
-            <direction type="absolute">10</direction>
+            <direction type="absolute">-10</direction>
             <speed>1</speed>
             <bulletRef label="grunt"></bulletRef>
           </fire>
@@ -21,6 +21,10 @@
 
   <bullet label="grunt">
     <action>
+      <changeDirection>
+        <direction type="absolute">-90</direction>
+        <term>255</term>
+      </changeDirection>
       <wait>100</wait>
       <actionRef label="shots"></actionRef>
     </action>

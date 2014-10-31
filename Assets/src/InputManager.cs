@@ -2,72 +2,75 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class InputManager : MonoBehaviour 
+namespace Jokie
 {
-
-    private static List<InputContext> contexts = new List<InputContext>();
-
-    public static void Register(InputContext ic)
+    public class InputManager : MonoBehaviour
     {
-        contexts.Add(ic);
-    }
 
-    public static void Unregister(InputContext ic)
-    {
-        contexts.Remove(ic);
-    }
+        private static List<InputContext> contexts = new List<InputContext>();
 
-    public static void GiveFocusTo(InputType type)
-    {
-        foreach (InputContext ic in contexts)
+        public static void Register(InputContext ic)
         {
-            if (ic.ContextType == type)
+            contexts.Add(ic);
+        }
+
+        public static void Unregister(InputContext ic)
+        {
+            contexts.Remove(ic);
+        }
+
+        public static void GiveFocusTo(InputType type)
+        {
+            foreach (InputContext ic in contexts)
             {
-                ic.SetFocus(true);
+                if (ic.ContextType == type)
+                {
+                    ic.SetFocus(true);
+                }
             }
+        }
+
+        public static void RevokeFocusTo(InputType type)
+        {
+            foreach (InputContext ic in contexts)
+            {
+                if (ic.ContextType == type)
+                {
+                    ic.SetFocus(false);
+                }
+            }
+        }
+
+        void Start()
+        {
+
         }
     }
 
-    public static void RevokeFocusTo(InputType type)
+    public enum PressType
     {
-        foreach (InputContext ic in contexts)
-        {
-            if (ic.ContextType == type)
-            {
-                ic.SetFocus(false);
-            }
-        }
+        Down,
+        Held,
+        Up
     }
 
-    void Start()
+    public enum InputAction
     {
-
+        Forward,
+        Backward,
+        Left,
+        Right,
+        Shoot,
+        Menu
     }
-}
 
-public enum PressType
-{
-    Down,
-    Held,
-    Up
-}
-
-public enum InputAction
-{
-    Forward,
-    Backward,
-    Left,
-    Right,
-    Shoot,
-    Menu
-}
-
-public enum InputType
-{
-    Movement,
-    Combat,
-    Menu,
-    Text,
-    UI,
-    All
+    public enum InputType
+    {
+        Movement,
+        Combat,
+        Menu,
+        Text,
+        UI,
+        All
+    }
 }

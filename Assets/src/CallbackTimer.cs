@@ -2,39 +2,42 @@
 using System;
 using System.Collections.Generic;
 
-public class CallbackTimer : MonoBehaviour 
+namespace Jokie
 {
-    static private Dictionary<Timer, Action> _timers = new Dictionary<Timer, Action>();
+    public class CallbackTimer : MonoBehaviour
+    {
+        static private Dictionary<Timer, Action> _timers = new Dictionary<Timer, Action>();
 
-    public static void RegisterTimer(Timer timer, Action callback)
-    {
-        _timers.Add(timer, callback);
-    }
-	
-	void Update () 
-    {
-        if(_timers.Count > 0)
+        public static void RegisterTimer(Timer timer, Action callback)
         {
-            List<Timer> deadTimers = null;
-            foreach (KeyValuePair<Timer, Action> kvp in _timers)
+            _timers.Add(timer, callback);
+        }
+
+        void Update()
+        {
+            if (_timers.Count > 0)
             {
-                if (kvp.Key.Check())
+                List<Timer> deadTimers = null;
+                foreach (KeyValuePair<Timer, Action> kvp in _timers)
                 {
-                    if (deadTimers == null)
+                    if (kvp.Key.Check())
                     {
-                        deadTimers = new List<Timer>();
+                        if (deadTimers == null)
+                        {
+                            deadTimers = new List<Timer>();
+                        }
+                        kvp.Value.Invoke();
+                        deadTimers.Add(kvp.Key);
                     }
-                    kvp.Value.Invoke();
-                    deadTimers.Add(kvp.Key);
                 }
-            }
-            if (deadTimers != null)
-            {
-                foreach (Timer t in deadTimers)
+                if (deadTimers != null)
                 {
-                    _timers.Remove(t);
+                    foreach (Timer t in deadTimers)
+                    {
+                        _timers.Remove(t);
+                    }
                 }
             }
         }
-	}
+    }
 }

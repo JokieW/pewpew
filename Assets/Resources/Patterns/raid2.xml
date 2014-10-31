@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<!DOCTYPE bulletml SYSTEM "bulletml.dtd">
+<bulletml>
+
+  <action label="top">
+    <action>
+      <repeat>
+        <times>4</times>
+        <action>
+          <fire>
+            <direction type="aim">0</direction>
+            <speed>0.40</speed>
+            <bulletRef label="grunt"></bulletRef>
+          </fire>
+          <wait>250</wait>
+        </action>
+      </repeat>
+    </action>
+  </action>
+
+  <bullet label="grunt">
+    <action>
+      <actionRef label="shots"></actionRef>
+    </action>
+  </bullet>
+
+  <action label="shots">
+    <repeat>
+      <times>8</times>
+      <action>
+        <wait>75</wait>
+        <fire>
+          <direction type="relative">-50</direction>
+          <speed>0.25</speed>
+          <bullet label="BigBullet" />
+        </fire>
+        <fire>
+          <direction type="relative">45</direction>
+          <speed>0.25</speed>
+          <bullet label="BigBullet" />
+        </fire>
+        <fire>
+          <direction type="relative">180</direction>
+          <speed>0.25</speed>
+          <bullet label="BigBullet"/>
+        </fire>
+      </action>
+    </repeat>
+  </action>
+</bulletml>

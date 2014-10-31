@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OutOfBounds : MonoBehaviour 
+namespace Jokie
 {
-    void OnTriggerExit(Collider collider)
+    public class OutOfBounds : MonoBehaviour
     {
-        collider.SendMessage("OnOutOfBounds", SendMessageOptions.DontRequireReceiver);
+        void OnCollisionStay(Collision collision)
+        {
+            Destroy(collision.gameObject);
+        }
     }
 }

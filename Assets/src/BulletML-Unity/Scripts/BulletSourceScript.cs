@@ -4,6 +4,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Jokie;
 
 namespace Pixelnest.BulletML
 {
@@ -13,7 +14,7 @@ namespace Pixelnest.BulletML
 #if UNITY_EDITOR
     [AddComponentMenu("BulletML/Bullet Source")]
 #endif
-    public class BulletSourceScript : MonoBehaviour
+    public class BulletSourceScript : MonoBehaviour, IEvent
     {
         private static Dictionary<TextAsset, BulletMLLib.BulletPattern> patternCache = new Dictionary<TextAsset, BulletMLLib.BulletPattern>();
 
@@ -34,8 +35,13 @@ namespace Pixelnest.BulletML
         {
             if (AutoRun)
             {
-                Fire();
+                StartEvent();
             }
+        }
+
+        public void StartEvent()
+        {
+            Fire();
         }
 
         public void Fire()
