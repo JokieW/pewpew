@@ -12,6 +12,7 @@ namespace Jokie.EventAction
 
         public static void SpawnPlayer(Vector3 position)
         {
+            EnemyManager.GOBACKINTIMETOKICKTHOSESUCKERSAGAIN();
             GameObject.Instantiate((GameObject)Resources.Load("Prefabs/Player"), position, Quaternion.identity);
         }
     }

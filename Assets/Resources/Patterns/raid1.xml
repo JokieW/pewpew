@@ -6,7 +6,7 @@
 
     <action>
       <repeat>
-        <times>5</times>
+        <times>6</times>
         <action>
           <fire>
             <direction type="absolute">10</direction>

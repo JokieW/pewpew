@@ -18,6 +18,7 @@ namespace Jokie
             if (_timers.Count > 0)
             {
                 List<Timer> deadTimers = null;
+
                 foreach (KeyValuePair<Timer, Action> kvp in _timers)
                 {
                     if (kvp.Key.Check())
@@ -30,6 +31,7 @@ namespace Jokie
                         deadTimers.Add(kvp.Key);
                     }
                 }
+
                 if (deadTimers != null)
                 {
                     foreach (Timer t in deadTimers)

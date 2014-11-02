@@ -61,6 +61,7 @@ namespace Jokie
         Left,
         Right,
         Shoot,
+        Focus,
         Menu
     }
 

@@ -3,6 +3,7 @@
 // file 'LICENSE.md', which is part of this source code package.
 using UnityEngine;
 using System.Collections;
+using Jokie;
 
 namespace Pixelnest.BulletML
 {
@@ -59,6 +60,31 @@ namespace Pixelnest.BulletML
                 if (isVisible == false)
                 {
                     OnDestroy();
+                }
+            }
+        }
+
+        void OnCollisionEnter(Collision col)
+        {
+            if (tag != col.gameObject.tag)
+            {
+                Actor actor = col.gameObject.GetComponent<Actor>();
+                if (actor != null)
+                {
+                    actor.HP--;
+                    if (col.gameObject.tag == "BadGuy")
+                    {
+                        Player.Player.Score += 10;
+                    }
+                    Actor me = GetComponent<Actor>();
+                    if (me != null)
+                    {
+                        me.Death();
+                    }
+                    else
+                    {
+                        RemoveBullet();
+                    }
                 }
             }
         }

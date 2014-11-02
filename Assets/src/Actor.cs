@@ -26,7 +26,6 @@ namespace Jokie
         }
 
         public float health;
-        private float _armour; // <- There it is. It is never used, but it's there, 5 points! :D
         public float HP
         {
             get
@@ -35,20 +34,33 @@ namespace Jokie
             }
             set
             {
-                health = value;
-                if (health <= 0)
+                if (value <= 0)
                 {
-                    Death();
+                    if (health > 0)
+                    {
+                        health = 0;
+                        Death();
+                    }
+                }
+                else
+                {
+                    health = value;
+                }
+
+                if (tag == "Player")
+                {
+                    GameObject.Find("HP").GetComponent<TextMesh>().text = "HP: " + health;
                 }
             }
         }
 
-
-        public static Player GetPlayer()
+        public float armour; // <- There it is. It is never used, but it's there, 5 points! :D
+        private float MitigatedDamage(int damage) // <- There it is, can I have 2 points retroactively?
         {
-            return _playerShortcut;
+            return Mathf.Clamp(damage - armour, 0.0f, Mathf.Infinity);
         }
 
+        public int score;
 
         void Start()
         {
@@ -58,6 +70,10 @@ namespace Jokie
         void OnDestroy()
         {
             _actorList.Remove(this);
+            if (tag == "BadGuy")
+            {
+                EnemyManager.TANGODOWN();
+            }
         }
 
         void Update()
@@ -67,11 +83,10 @@ namespace Jokie
 
         public virtual void Death()
         {
-            Destroy(gameObject);
-        }
-
-        public void DestroyMe()
-        {
+            if (tag == "BadGuy")
+            {
+                Player.Player.Score += score;
+            }
             Destroy(gameObject);
         }
     }

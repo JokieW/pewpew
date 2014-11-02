@@ -10,7 +10,7 @@
           <fire>
             <direction type="aim">0</direction>
             <speed>0.40</speed>
-            <bulletRef label="grunt"></bulletRef>
+            <bulletRef label="grunt2"></bulletRef>
           </fire>
           <wait>250</wait>
         </action>
@@ -18,7 +18,7 @@
     </action>
   </action>
 
-  <bullet label="grunt">
+  <bullet label="grunt2">
     <action>
       <actionRef label="shots"></actionRef>
     </action>

@@ -73,6 +73,17 @@ namespace Jokie
         public void SetFocus(bool focus)
         {
             _focused = focus;
+
+            if (!focus)
+            {
+                foreach (KeySet ks in _keySets)
+                {
+                    if (ks.Press == PressType.Up)
+                    {
+                        ks.Function.Invoke();
+                    }
+                }
+            }
         }
     }
 

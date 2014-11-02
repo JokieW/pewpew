@@ -8,8 +8,50 @@ namespace Jokie
     {
         private Vector3 _movement = Vector3.zero;
         public float Speed = 5.0f;
-        public bool AllowMovement = true;
+        public float SpeedModifier = 1.0f;
         public BulletSourceScript[] cannons;
+
+        private int _score = 0;
+        public int Score
+        {
+            get
+            {
+                return _score;   
+            }
+            set
+            {
+                _score = value;
+                GameObject.Find("Score").GetComponent<TextMesh>().text = "Score: " + value;
+            }
+        }
+
+        private int _lives = 3;
+        public int Lives
+        {
+            get
+            {
+                return _lives;
+            }
+            set
+            {
+                if (_lives > 0)
+                {
+                    _lives = value;
+                    GameObject.Find("Lives").GetComponent<TextMesh>().text = "Lives: " + value;
+                    if (_lives > 0)
+                    {
+                        HP = 1;
+                    }
+                    else
+                    {
+                        GameObject.Find("Gameover").GetComponent<TextMesh>().text = "U R DED";
+                        CallbackTimer.RegisterTimer(new Timer(5.0f), delegate { Application.LoadLevel("Menu"); });
+                        InputManager.RevokeFocusTo(InputType.Movement);
+                        InputManager.RevokeFocusTo(InputType.Combat);
+                    }
+                }
+            }
+        }
 
         void Start()
         {
@@ -19,6 +61,9 @@ namespace Jokie
             ic.RegisterKeySet(new KeySet(InputAction.Left, KeyCode.LeftArrow, PressType.Held, MoveLeft));
             ic.RegisterKeySet(new KeySet(InputAction.Backward, KeyCode.DownArrow, PressType.Held, MoveBackward));
             ic.RegisterKeySet(new KeySet(InputAction.Right, KeyCode.RightArrow, PressType.Held, MoveRight));
+
+            ic.RegisterKeySet(new KeySet(InputAction.Focus, KeyCode.LeftShift, PressType.Down, Focus));
+            ic.RegisterKeySet(new KeySet(InputAction.Focus, KeyCode.LeftShift, PressType.Up, Unfocus));
             ic.SetFocus(true);
             InputManager.Register(ic);
 
@@ -35,7 +80,7 @@ namespace Jokie
 
         public override void Death()
         {
-
+            Lives--;
         }
 
         void Update()
@@ -76,22 +121,32 @@ namespace Jokie
 
         void MoveForward()
         {
-            _movement += Vector3.up;
+            _movement += Vector3.up * SpeedModifier;
         }
 
         void MoveBackward()
         {
-            _movement += Vector3.down;
+            _movement += Vector3.down * SpeedModifier;
         }
 
         void MoveLeft()
         {
-            _movement += Vector3.left;
+            _movement += Vector3.left * SpeedModifier;
         }
 
         void MoveRight()
         {
-            _movement += Vector3.right;
+            _movement += Vector3.right * SpeedModifier;
+        }
+
+        void Focus()
+        {
+            SpeedModifier = 0.5f;
+        }
+
+        void Unfocus()
+        {
+            SpeedModifier = 1.0f;
         }
 
         void Shoot()
