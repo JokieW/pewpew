@@ -11,48 +11,6 @@ namespace Jokie
         public float SpeedModifier = 1.0f;
         public BulletSourceScript[] cannons;
 
-        private int _score = 0;
-        public int Score
-        {
-            get
-            {
-                return _score;   
-            }
-            set
-            {
-                _score = value;
-                GameObject.Find("Score").GetComponent<TextMesh>().text = "Score: " + value;
-            }
-        }
-
-        private int _lives = 3;
-        public int Lives
-        {
-            get
-            {
-                return _lives;
-            }
-            set
-            {
-                if (_lives > 0)
-                {
-                    _lives = value;
-                    GameObject.Find("Lives").GetComponent<TextMesh>().text = "Lives: " + value;
-                    if (_lives > 0)
-                    {
-                        HP = 1;
-                    }
-                    else
-                    {
-                        GameObject.Find("Gameover").GetComponent<TextMesh>().text = "U R DED";
-                        CallbackTimer.RegisterTimer(new Timer(5.0f), delegate { Application.LoadLevel("Menu"); });
-                        InputManager.RevokeFocusTo(InputType.Movement);
-                        InputManager.RevokeFocusTo(InputType.Combat);
-                    }
-                }
-            }
-        }
-
         void Start()
         {
             InputContext ic = gameObject.AddComponent<InputContext>();
@@ -80,7 +38,7 @@ namespace Jokie
 
         public override void Death()
         {
-            Lives--;
+            
         }
 
         void Update()

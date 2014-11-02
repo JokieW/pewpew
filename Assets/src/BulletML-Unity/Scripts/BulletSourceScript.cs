@@ -83,6 +83,26 @@ namespace Pixelnest.BulletML
             }
         }
 
+        void OnDrawGizmos()
+        {
+            if (_fire)
+            {
+                Gizmos.color = Color.red;
+            }
+            else
+            {
+                Gizmos.color = Color.yellow;
+            }
+
+            if (Camera.current != Camera.main)
+            {
+                Gizmos.DrawSphere(transform.position, 0.3f);
+                Gizmos.DrawLine(transform.position - new Vector3(0.0f, 5.0f, 0.0f), transform.position + new Vector3(0.0f, 5.0f, 0.0f));
+                Gizmos.DrawLine(transform.position - new Vector3(5.0f, 0.0f, 0.0f), transform.position + new Vector3(5.0f, 0.0f, 0.0f));
+            }
+            
+        }
+
         /// <summary>
         /// Restart the whole pattern
         /// </summary>

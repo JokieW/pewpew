@@ -72,10 +72,7 @@ namespace Pixelnest.BulletML
                 if (actor != null)
                 {
                     actor.HP--;
-                    if (col.gameObject.tag == "BadGuy")
-                    {
-                        Player.Player.Score += 10;
-                    }
+
                     Actor me = GetComponent<Actor>();
                     if (me != null)
                     {

@@ -32,6 +32,7 @@ namespace Jokie
 
         void OnTriggerEnter(Collider other)
         {
+            
             if (type == TriggerType.PlayerTouch || type == TriggerType.EventTouch || type == TriggerType.ActorTouch)
             {
                 ITriggerable it = (ITriggerable)other.gameObject.GetComponent(typeof(ITriggerable));
@@ -45,7 +46,7 @@ namespace Jokie
                     {
                         ((IEvent)triggeree).StartEvent();
                     }
-                    else if (type == TriggerType.EventTouch && it.GetType() == typeof(Event))
+                    else if (type == TriggerType.EventTouch && typeof(IEvent).IsAssignableFrom(it.GetType()))
                     {
                         ((IEvent)triggeree).StartEvent();
                     }
