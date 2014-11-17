@@ -24,6 +24,11 @@ namespace Jokie
             return Time.time >= _startTime + _delay;
         }
 
+        public float ElapsedSeconds()
+        {
+            return Time.time - _startTime;
+        }
+
         public void Reset()
         {
             _startTime = Time.time;

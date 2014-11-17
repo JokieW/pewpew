@@ -42,6 +42,7 @@ namespace BulletMLLib
 		/// <param name="bullet">Bullet.</param>
 		protected override void SetupTask(Bullet bullet)
 		{
+
 			//set the time length to run this dude
 			Duration = Node.GetChildValue(ENodeName.term, this);
 

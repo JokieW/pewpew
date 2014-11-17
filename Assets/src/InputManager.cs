@@ -62,7 +62,8 @@ namespace Jokie
         Right,
         Shoot,
         Focus,
-        Menu
+        Menu,
+        Bomb
     }
 
     public enum InputType

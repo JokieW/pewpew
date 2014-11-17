@@ -96,6 +96,10 @@ namespace BulletMLLib
           {
             return new TriggerNode();
           }
+        case ENodeName.playsound:
+          {
+              return new PlaySoundNode();
+          }
         case ENodeName.bulletml:
           {
             return new BulletMLNode(ENodeName.bulletml);

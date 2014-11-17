@@ -14,5 +14,6 @@
         </fire>
       </action>
     </repeat>
+    <playsound>playerShot00</playsound>
   </action>
 </bulletml>

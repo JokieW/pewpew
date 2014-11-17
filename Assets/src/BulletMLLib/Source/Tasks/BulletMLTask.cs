@@ -88,7 +88,7 @@ namespace BulletMLLib
 		{
 			System.Diagnostics.Debug.Assert(null != childNode);
 			System.Diagnostics.Debug.Assert(null != bullet);
-
+            
 			//construct the correct type of node
 			switch (childNode.Name)
 			{
@@ -213,6 +213,12 @@ namespace BulletMLLib
 					ChildTasks.Add(new AccelTask(childNode as AccelNode, this));
 				}
 				break;
+
+                case ENodeName.playsound:
+                {
+                    ChildTasks.Add(new PlaySoundTask(childNode as PlaySoundNode, this));
+                }
+                break;
 
         case ENodeName.trigger:
         {

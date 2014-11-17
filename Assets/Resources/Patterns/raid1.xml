@@ -31,22 +31,23 @@
   </bullet>
 
   <action label="shots">
+    
     <repeat>
       <times>3</times>
       <action>
         <fire>
           <direction type="aim">5</direction>
-          <speed>2</speed>
-          <bullet />
-        </fire>
-        <fire>
-          <direction type="aim">0</direction>
           <speed>1.5</speed>
           <bullet />
         </fire>
         <fire>
-          <direction type="aim">-5</direction>
+          <direction type="aim">0</direction>
           <speed>1</speed>
+          <bullet />
+        </fire>
+        <fire>
+          <direction type="aim">2</direction>
+          <speed>0.75</speed>
           <bullet />
         </fire>
         <fire>
@@ -55,6 +56,7 @@
           <bullet />
         </fire>
         <wait>25</wait>
+        <playsound>enemyShot00+enemyShot01</playsound>
       </action>
     </repeat>
   </action>

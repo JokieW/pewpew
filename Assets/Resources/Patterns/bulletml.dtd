@@ -30,10 +30,12 @@
 
 <!ELEMENT trigger (#PCDATA)>
 
-<!ELEMENT action (changeDirection | accel | vanish | changeSpeed | repeat | wait | trigger | (fire | fireRef) | (action | actionRef))*>
+<!ELEMENT action (changeDirection | accel | vanish | playsound | changeSpeed | repeat | wait | trigger | (fire | fireRef) | (action | actionRef))*>
 <!ATTLIST action label CDATA #IMPLIED>
 
 <!ELEMENT vanish (#PCDATA)>
+
+<!ELEMENT playsound (#PCDATA)>
 
 <!ELEMENT speed (#PCDATA)>
 <!ATTLIST speed type (absolute|relative|sequence) "absolute">

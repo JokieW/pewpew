@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<!DOCTYPE bulletml SYSTEM "bulletml.dtd">
+<bulletml>
+
+  <action label="top">
+      <action>
+        <fire>
+          <direction type="absolute">-45</direction>
+          <speed>0.5</speed>
+          <bulletRef label="doubleRainbows"></bulletRef>
+        </fire>
+        <wait>1</wait>
+      </action>
+  </action>
+
+  <bullet label="doubleRainbows">
+    <action>
+      <wait>100</wait>
+      <changeSpeed>
+        <speed>0</speed>
+        <term>60</term>
+      </changeSpeed>
+      <wait>25</wait>
+      <actionRef label="shots"></actionRef>
+      <changeSpeed>
+        <speed>1</speed>
+        <term>60</term>
+      </changeSpeed>
+    </action>
+  </bullet>
+
+  <action label="shots">
+    
+    <repeat>
+      <times>250</times>
+      <action>
+        <fire>
+          <direction type="sequence">-22.5</direction>
+          <speed>0.75</speed>
+          <bullet />
+        </fire>
+        <playsound>enemyShot01</playsound>
+        <wait>1</wait>
+      </action>
+    </repeat>
+    <repeat>
+      <times>500</times>
+      <action>
+        <fire>
+          <direction type="sequence">11.25</direction>
+          <speed>0.75</speed>
+          <bullet />
+        </fire>
+        <playsound>enemyShot01</playsound>
+        <wait>1</wait>
+      </action>
+    </repeat>
+  </action>
+</bulletml>

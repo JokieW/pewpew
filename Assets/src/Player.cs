@@ -10,6 +10,10 @@ namespace Jokie
         public float Speed = 5.0f;
         public float SpeedModifier = 1.0f;
         public BulletSourceScript[] cannons;
+        public MeshRenderer FocusGizmo;
+
+        private Timer TimeSinceDeath = new Timer(0.0f);
+        private bool invulnerable = false;
 
         void Start()
         {
@@ -22,6 +26,9 @@ namespace Jokie
 
             ic.RegisterKeySet(new KeySet(InputAction.Focus, KeyCode.LeftShift, PressType.Down, Focus));
             ic.RegisterKeySet(new KeySet(InputAction.Focus, KeyCode.LeftShift, PressType.Up, Unfocus));
+
+            ic.RegisterKeySet(new KeySet(InputAction.Bomb, KeyCode.X, PressType.Down, delegate() { Bomb(true);}));
+
             ic.SetFocus(true);
             InputManager.Register(ic);
 
@@ -36,13 +43,89 @@ namespace Jokie
 
         }
 
+        public override float HP
+        {
+            get
+            {
+                return health;
+            }
+            set
+            {
+                if (!invulnerable)
+                {
+                    if (value <= 0)
+                    {
+                        if (health > 0)
+                        {
+                            health = 0;
+                            Death();
+                        }
+                    }
+                    else
+                    {
+                        health = value;
+                        if (health % 10 == 0)
+                        {
+                            SoundEngine.PlayClip("damage");
+                        }
+                    }
+                }
+            }
+        }
+
         public override void Death()
         {
-            
+            Bomb(false);
+            SoundEngine.PlayClip("playerDeath");
+            health = 1;
+            TimeSinceDeath = new Timer(4.0f);
+            invulnerable = true;
+            transform.position = new Vector3(0.0f, -5.0f, 0.0f);
+        }
+
+        void Bomb(bool withSound)
+        {
+            GameObject.FindObjectOfType<LightController>().Flash();
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, 7.5f);
+            int i = 0;
+            while (i < hitColliders.Length)
+            {
+                if (hitColliders[i].GetComponent<BulletScript>() != null)
+                {
+                    Destroy(hitColliders[i].gameObject);
+                }
+                i++;
+            }
+            if (withSound)
+            {
+                SoundEngine.PlayClip("explosion");
+            }
         }
 
         void Update()
         {
+            //Death flicker
+            if (invulnerable)
+            {
+                if (TimeSinceDeath.Check())
+                {
+                    invulnerable = false;
+                    renderer.enabled = true;
+                }
+                else
+                {
+                    if (TimeSinceDeath.ElapsedSeconds() % 0.5f <= 0.25)
+                    {
+                        renderer.enabled = false;
+                    }
+                    else
+                    {
+                        renderer.enabled = true;
+                    }
+                }
+            }
+
+            //Movement
             if (_movement != Vector3.zero)
             {
                 //Movement
@@ -100,11 +183,13 @@ namespace Jokie
         void Focus()
         {
             SpeedModifier = 0.5f;
+            FocusGizmo.enabled = true;
         }
 
         void Unfocus()
         {
             SpeedModifier = 1.0f;
+            FocusGizmo.enabled = false;
         }
 
         void Shoot()

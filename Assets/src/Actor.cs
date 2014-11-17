@@ -26,7 +26,7 @@ namespace Jokie
         }
 
         public float health;
-        public float HP
+        public virtual float HP
         {
             get
             {
@@ -45,6 +45,10 @@ namespace Jokie
                 else
                 {
                     health = value;
+                    if (health % 10 == 0)
+                    {
+                        SoundEngine.PlayClip("damage");
+                    }
                 }
             }
         }
@@ -61,6 +65,7 @@ namespace Jokie
 
         public virtual void Death()
         {
+            SoundEngine.PlayClip("enemyDeath");
             Destroy(gameObject);
         }
     }
