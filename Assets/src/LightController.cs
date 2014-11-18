@@ -24,8 +24,8 @@ public class LightController : MonoBehaviour
     {
         if (!_flashing)
         {
-            light1.intensity *= 16;
-            light2.intensity *= 16;
+            light1.intensity *= 4;
+            light2.intensity *= 4;
             _flashing = true;
             _flash = new Timer(1.0f);
         }

@@ -110,17 +110,26 @@ namespace Jokie
                 if (TimeSinceDeath.Check())
                 {
                     invulnerable = false;
-                    renderer.enabled = true;
+                    foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
+                    {
+                        mr.enabled = true;
+                    }
                 }
                 else
                 {
                     if (TimeSinceDeath.ElapsedSeconds() % 0.5f <= 0.25)
                     {
-                        renderer.enabled = false;
+                        foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
+                        {
+                            mr.enabled = false;
+                        }
                     }
                     else
                     {
-                        renderer.enabled = true;
+                        foreach (MeshRenderer mr in GetComponentsInChildren<MeshRenderer>())
+                        {
+                            mr.enabled = true;
+                        }
                     }
                 }
             }
